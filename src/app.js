@@ -1,4 +1,4 @@
-import { sum } from './utils';
+import { sum } from './utils.js';
 
 console.log('Hello World!');
 
