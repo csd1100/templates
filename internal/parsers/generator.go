@@ -1,7 +1,7 @@
 package parsers
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"path"
 	"strings"
@@ -12,29 +12,36 @@ func Generate(config *Config, data *TemplateFiles) error {
 	filesToWrite := map[string][]byte{}
 
 	for _, templateFile := range data.Files {
-		content, err := os.ReadFile(path.Join(config.SourceDirectory, templateFile.Src))
+		content, err := os.ReadFile(path.Join(config.SourceDirectory, templateFile.Real))
 		if err != nil {
 			return err
 		}
 
-		target := path.Join(config.TargetDirectory, templateFile.Dest)
-		fmt.Println(target)
+		target := path.Join(config.TargetDirectory, templateFile.Template)
+		if config.Verbose {
+			log.Printf("target -> %s", target)
+		}
 
 		targetDir := path.Dir(target)
-		fmt.Println(targetDir)
+		if config.Verbose {
+			log.Printf("target directory -> %s", targetDir)
+		}
 		if _, err = os.Stat(targetDir); err != nil {
 			dirsToCreate = append(dirsToCreate, targetDir)
 		}
 
 		text := string(content)
 		for from, to := range templateFile.Replacements {
-			fmt.Println(from)
-			fmt.Println(to)
+			if config.Verbose {
+				log.Printf("from %s -> to %s for %s", from, to, target)
+			}
 			if strings.Contains(text, from) {
 				text = strings.ReplaceAll(text, from, to)
 			}
 		}
-		fmt.Println(text)
+		if config.Verbose {
+			log.Printf("replaced text for %s ->\n%s", target, text)
+		}
 
 		filesToWrite[target] = []byte(text)
 	}

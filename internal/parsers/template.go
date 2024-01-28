@@ -7,8 +7,8 @@ import (
 )
 
 type TemplateFile struct {
-	Src          string            `json:"src"`
-	Dest         string            `json:"dest"`
+	Real         string            `json:"real"`
+	Template     string            `json:"template"`
 	Replacements map[string]string `json:"replacements"`
 }
 
@@ -20,12 +20,12 @@ func ParseTemplateFiles(templateFile string) (*TemplateFiles, error) {
 	var templateFiles TemplateFiles
 	contents, err := os.ReadFile(templateFile)
 	if err != nil {
-		return nil, fmt.Errorf("Unable to read template files %v", templateFile)
+		return nil, fmt.Errorf("Unable to read config file '%v'", templateFile)
 	}
 
 	err = json.Unmarshal(contents, &templateFiles)
 	if err != nil {
-		return nil, fmt.Errorf("Unable to parse TemplateFiles %v due to error: %w", templateFile, err)
+		return nil, fmt.Errorf("Unable to parse config '%v', due to error: '%w'", templateFile, err)
 	}
 
 	return &templateFiles, nil
