@@ -1,8 +1,8 @@
 package main
 
 import (
+	"___packageName___/___projectName___/utils"
 	"fmt"
-	"template/hello-world/utils"
 )
 
 func main() {
