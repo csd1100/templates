@@ -13,33 +13,19 @@ var FSet = flag.FlagSet{}
 var configFile string
 var sourceDirectory string
 var targetDirectory string
+var verbose bool
 
 type Config struct {
+	Verbose         bool
 	ConfigFile      string
 	SourceDirectory string
 	TargetDirectory string
 }
 
-func getConfigFilePath(configFile, sourceDirectory string) (string, error) {
-	if filepath.IsAbs(configFile) {
-		return getAbsPath(configFile, false)
-	} else {
-		return getAbsPath(path.Join(sourceDirectory, configFile), false)
-	}
-}
-
-func getAbsPath(path string, chkDir bool) (string, error) {
+func getAbsPath(path string) (string, error) {
 	if absPath, err := filepath.Abs(path); err == nil {
-		if stat, err := os.Stat(absPath); err == nil {
-			if !chkDir {
-				return absPath, nil
-			} else {
-				if stat.IsDir() {
-					return absPath, nil
-				} else {
-					return "", fmt.Errorf("%v is not a directory", absPath)
-				}
-			}
+		if _, err := os.Stat(absPath); err == nil {
+			return absPath, nil
 		} else {
 			return "", fmt.Errorf("Unable to read %v", absPath)
 		}
@@ -48,14 +34,26 @@ func getAbsPath(path string, chkDir bool) (string, error) {
 	}
 }
 
-func ParseArgs() (*Config, error) {
+func getConfigFilePath(configFile, sourceDirectory string) (string, error) {
+	if path.Base(configFile) == configFile {
+		return getAbsPath(path.Join(sourceDirectory, configFile))
+	} else {
+		return getAbsPath(configFile)
+	}
+}
+
+func init() {
 	FSet.StringVar(&configFile, "c", "template-files.json", "Path or name of the file to use for generating templates")
 	FSet.StringVar(&configFile, "config", "template-files.json", "Path or name of the file to use for generating templates")
 	FSet.StringVar(&sourceDirectory, "s", "", "Path to directory where files should be read from")
 	FSet.StringVar(&sourceDirectory, "source", "", "Path to directory where files should be read from")
 	FSet.StringVar(&targetDirectory, "t", "", "Path to directory where templates should be generated")
 	FSet.StringVar(&targetDirectory, "target", "", "Path to directory where templates should be generated")
+	FSet.BoolVar(&verbose, "v", false, "Should print debug output")
+	FSet.BoolVar(&verbose, "verbose", false, "Should print debug output")
+}
 
+func ParseArgs() (*Config, error) {
 	err := FSet.Parse(os.Args[1:])
 	if err != nil {
 		return nil, fmt.Errorf("Unable to parse arguments")
@@ -75,21 +73,22 @@ func ParseArgs() (*Config, error) {
 
 	config := Config{}
 
+	sourceDirectory, err = getAbsPath(sourceDirectory)
+	if err != nil {
+		return nil, err
+	}
+
 	configFile, err = getConfigFilePath(configFile, sourceDirectory)
 	if err != nil {
 		return nil, err
 	}
 
-	sourceDirectory, err = getAbsPath(sourceDirectory, true)
+	targetDirectory, err = filepath.Abs(targetDirectory)
 	if err != nil {
 		return nil, err
 	}
 
-	targetDirectory, err = getAbsPath(targetDirectory, true)
-	if err != nil {
-		return nil, err
-	}
-
+	config.Verbose = verbose
 	config.ConfigFile = configFile
 	config.SourceDirectory = sourceDirectory
 	config.TargetDirectory = targetDirectory

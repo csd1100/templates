@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/csd1100/templates/internal/parsers"
@@ -13,14 +12,18 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Printf("\n Config: %+v\n", config)
+	if config.Verbose {
+		log.Printf("Config: %+v", config)
+	}
 
 	data, err := parsers.ParseTemplateFiles(config.ConfigFile)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Printf("\n Data: %+v\n", data)
+	if config.Verbose {
+		log.Printf("Data: %+v", data)
+	}
 
 	err = parsers.Generate(config, data)
 	if err != nil {
