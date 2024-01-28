@@ -12,12 +12,12 @@ func Generate(config *Config, data *TemplateFiles) error {
 	filesToWrite := map[string][]byte{}
 
 	for _, templateFile := range data.Files {
-		content, err := os.ReadFile(path.Join(config.SourceDirectory, templateFile.Src))
+		content, err := os.ReadFile(path.Join(config.SourceDirectory, templateFile.Real))
 		if err != nil {
 			return err
 		}
 
-		target := path.Join(config.TargetDirectory, templateFile.Dest)
+		target := path.Join(config.TargetDirectory, templateFile.Template)
 		if config.Verbose {
 			log.Printf("target -> %s", target)
 		}

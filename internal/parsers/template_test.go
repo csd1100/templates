@@ -34,16 +34,16 @@ func TestParseTemplateFile(t *testing.T) {
 			expected_value: &parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Src:  "./testsource1",
-						Dest: "./testsource1.tmpl",
+						Real:  "./testsource1",
+						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 							"___packageName___": "{{ .packageName }}",
 						},
 					},
 					{
-						Src:  "./testsource2",
-						Dest: "./testsource2.tmpl",
+						Real:  "./testsource2",
+						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 						},

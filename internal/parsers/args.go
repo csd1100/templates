@@ -1,6 +1,7 @@
 package parsers
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -16,6 +17,7 @@ var targetDirectory string
 var verbose bool
 
 type Config struct {
+	Help            bool
 	Verbose         bool
 	ConfigFile      string
 	SourceDirectory string
@@ -43,20 +45,24 @@ func getConfigFilePath(configFile, sourceDirectory string) (string, error) {
 }
 
 func init() {
-	FSet.StringVar(&configFile, "c", "template-files.json", "Path or name of the file to use for generating templates")
-	FSet.StringVar(&configFile, "config", "template-files.json", "Path or name of the file to use for generating templates")
+	FSet.StringVar(&configFile, "c", "template-files.json", "Path or name of the config file to use for generating templates")
+	FSet.StringVar(&configFile, "config", "template-files.json", "Path or name of the config file to use for generating templates")
 	FSet.StringVar(&sourceDirectory, "s", "", "Path to directory where files should be read from")
 	FSet.StringVar(&sourceDirectory, "source", "", "Path to directory where files should be read from")
 	FSet.StringVar(&targetDirectory, "t", "", "Path to directory where templates should be generated")
 	FSet.StringVar(&targetDirectory, "target", "", "Path to directory where templates should be generated")
-	FSet.BoolVar(&verbose, "v", false, "Should print debug output")
-	FSet.BoolVar(&verbose, "verbose", false, "Should print debug output")
+	FSet.BoolVar(&verbose, "v", false, "Print debug output")
+	FSet.BoolVar(&verbose, "verbose", false, "Print debug output")
 }
 
 func ParseArgs() (*Config, error) {
 	err := FSet.Parse(os.Args[1:])
 	if err != nil {
-		return nil, fmt.Errorf("Unable to parse arguments")
+		if errors.Is(err, flag.ErrHelp) {
+			return &Config{Help: true}, nil
+		} else {
+			return nil, fmt.Errorf("Unable to parse arguments")
+		}
 	}
 
 	if configFile == "" {

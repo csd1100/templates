@@ -1,16 +1,16 @@
 {
     "template-files": [
         {
-            "src": "./testsource1",
-            "dest": "./testsource1.tmpl",
+            "real": "./testsource1",
+            "template": "./testsource1.tmpl",
             "replacements": {
                 "___projectName___": "{{ .projectName }}",
                 "___packageName___": "{{ .packageName }}"
             }
         },
         {
-            "src": "./testsource2",
-            "dest": "./testsource2.tmpl",
+            "real": "./testsource2",
+            "template": "./testsource2.tmpl",
             "replacements": {
                 "___projectName___": "{{ .projectName }}"
             }

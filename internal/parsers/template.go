@@ -7,8 +7,8 @@ import (
 )
 
 type TemplateFile struct {
-	Src          string            `json:"src"`
-	Dest         string            `json:"dest"`
+	Real         string            `json:"real"`
+	Template     string            `json:"template"`
 	Replacements map[string]string `json:"replacements"`
 }
 

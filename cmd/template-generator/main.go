@@ -12,6 +12,10 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
+	if config.Help {
+		return
+	}
+
 	if config.Verbose {
 		log.Printf("Config: %+v", config)
 	}

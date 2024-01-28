@@ -38,16 +38,16 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Src:  "./testsource1",
-						Dest: "./testsource1.tmpl",
+						Real:  "./testsource1",
+						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 							"___packageName___": "{{ .packageName }}",
 						},
 					},
 					{
-						Src:  "./testsource2",
-						Dest: "./testsource2.tmpl",
+						Real:  "./testsource2",
+						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 						},
@@ -68,16 +68,16 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Src:  "./testsource1",
-						Dest: "./dir1/testsource1.tmpl",
+						Real:  "./testsource1",
+						Template: "./dir1/testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 							"___packageName___": "{{ .packageName }}",
 						},
 					},
 					{
-						Src:  "./testsource2",
-						Dest: "./dir2/testsource2.tmpl",
+						Real:  "./testsource2",
+						Template: "./dir2/testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 						},
@@ -98,16 +98,16 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Src:  "./invalid_testsource1",
-						Dest: "./testsource1.tmpl",
+						Real:  "./invalid_testsource1",
+						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 							"___packageName___": "{{ .packageName }}",
 						},
 					},
 					{
-						Src:  "./testsource2",
-						Dest: "./testsource2.tmpl",
+						Real:  "./testsource2",
+						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 						},
@@ -128,16 +128,16 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Src:  "./testsource1",
-						Dest: "./testsource1.tmpl",
+						Real:  "./testsource1",
+						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 							"___packageName___": "{{ .packageName }}",
 						},
 					},
 					{
-						Src:  "./invalid_testsource2",
-						Dest: "./testsource2.tmpl",
+						Real:  "./invalid_testsource2",
+						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
 						},
