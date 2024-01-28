@@ -1,0 +1,20 @@
+{
+    "template-files": [
+        {
+            "real": "./go.mod",
+            "template": "./go.mod.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}",
+                "___packageName___": "{{ .packageName }}"
+            }
+        },
+        {
+            "real": "./main.go",
+            "template": "./main.go.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}",
+                "___packageName___": "{{ .packageName }}"
+            }
+        }
+    ]
+}
