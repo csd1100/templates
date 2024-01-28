@@ -2,7 +2,7 @@
     "template-files": [
         {
             "real": "./go.mod",
-            "template": "./go.mod.tmpl",
+            "template": "./templates/go.mod.tmpl",
             "replacements": {
                 "___projectName___": "{{ .projectName }}",
                 "___packageName___": "{{ .packageName }}"
@@ -10,7 +10,7 @@
         },
         {
             "real": "./main.go",
-            "template": "./main.go.tmpl",
+            "template": "./templates/main.go.tmpl",
             "replacements": {
                 "___projectName___": "{{ .projectName }}",
                 "___packageName___": "{{ .packageName }}"
