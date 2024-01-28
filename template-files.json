@@ -1,0 +1,11 @@
+{
+    "template-files": [
+        {
+            "real": "./package.json",
+            "template": "./templates/package.json.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}"
+            }
+        }
+    ]
+}
