@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "_templates_"
+name = "___projectName___"
 version = "0.1.0"

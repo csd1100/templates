@@ -1,0 +1,25 @@
+{
+    "template-files": [
+        {
+            "real": "./Cargo.toml",
+            "template": "./templates/Cargo.toml.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}"
+            }
+        },
+        {
+            "real": "./src/main.rs",
+            "template": "./templates/src/main.rs.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}"
+            }
+        },
+        {
+            "real": "./src/bin/math.rs",
+            "template": "./templates/src/bin/math.rs.tmpl",
+            "replacements": {
+                "___projectName___": "{{ .projectName }}"
+            }
+        }
+    ]
+}

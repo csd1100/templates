@@ -1,8 +1,8 @@
 [package]
-name = "_templates_"
+name = "___projectName___"
 version = "0.1.0"
 edition = "2021"
-default-run = "_templates_"
+default-run = "___projectName___"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
