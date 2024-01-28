@@ -47,9 +47,10 @@ Usage:
     Print debug output
 ```
 
-- This utility requires `-s` and `-t` to be passed.
+- This utility requires `-s` to be passed.
 - `-s` is source directory from which files will be read.
-- `-t` is target directory where generated template will be stored.
+- `-t` is target directory where generated template will be stored. If not passed
+  value will be same as `-s`
 - `template-generator` will read config file specified in `-c` flag or
   if not defined it will read config from `source_directory/template-files.json`
 - The config file will be stored in root of all branches named `template-files.json`.
@@ -81,4 +82,3 @@ Usage:
   of `___projectName___` with `{{ .projectName }}` and store generated file in `template`.
 - The `init` project will read `template` and generate actual files at location
   of `real` depending on user input.
-
