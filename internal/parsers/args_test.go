@@ -53,12 +53,16 @@ func TestParse(t *testing.T) {
 			expected_error: fmt.Errorf("The parameter `s|source` is required"),
 		},
 		{
-			name: "returns error if target not included",
+			name: "returns source if target not included",
 			init: func() {
-				parsers.FSet.Set("s", "test")
+				parsers.FSet.Set("s", "../../tests/data/")
 			},
-			expected_value: nil,
-			expected_error: fmt.Errorf("The parameter `t|target` is required"),
+			expected_value: &parsers.Config{
+				ConfigFile:      configFilePath,
+				SourceDirectory: sourceDirectoryPath,
+				TargetDirectory: sourceDirectoryPath,
+			},
+			expected_error: nil,
 		},
 		{
 			name: "returns valid config",

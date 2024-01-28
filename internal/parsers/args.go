@@ -73,10 +73,6 @@ func ParseArgs() (*Config, error) {
 		return nil, fmt.Errorf("The parameter `s|source` is required")
 	}
 
-	if targetDirectory == "" {
-		return nil, fmt.Errorf("The parameter `t|target` is required")
-	}
-
 	config := Config{}
 
 	sourceDirectory, err = getAbsPath(sourceDirectory)
@@ -89,9 +85,13 @@ func ParseArgs() (*Config, error) {
 		return nil, err
 	}
 
-	targetDirectory, err = filepath.Abs(targetDirectory)
-	if err != nil {
-		return nil, err
+	if targetDirectory == "" {
+		targetDirectory = sourceDirectory
+	} else {
+		targetDirectory, err = filepath.Abs(targetDirectory)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	config.Verbose = verbose
