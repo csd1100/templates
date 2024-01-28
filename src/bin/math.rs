@@ -1,4 +1,4 @@
-use _templates_::math::math::add;
+use ___projectName___::math::math::add;
 
 fn main() {
     let a = 12;
