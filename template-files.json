@@ -11,14 +11,14 @@
             "real": "./src/main.rs",
             "template": "./templates/src/main.rs.tmpl",
             "replacements": {
-                "___projectName___": "{{ .projectNameNoHyphens }}"
+                "___projectName___": "{{ .projectNameReplacedHyphens }}"
             }
         },
         {
             "real": "./src/bin/math.rs",
             "template": "./templates/src/bin/math.rs.tmpl",
             "replacements": {
-                "___projectName___": "{{ .projectNameNoHyphens }}"
+                "___projectName___": "{{ .projectNameReplacedHyphens }}"
             }
         }
     ]
