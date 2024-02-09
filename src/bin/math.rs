@@ -1,7 +1,12 @@
-use ___projectName___::math::math::add;
+use ___projectName___::math::math::{add, div};
+use anyhow::{Ok, Result};
 
-fn main() {
+fn main() -> Result<()> {
     let a = 12;
     let b = 23;
-    println!("{} + {} = {}", a, b, add(a, b));
+    println!("{} + {} = {}", a, b, add(a, b)?);
+    let c = 400;
+    let d = 200;
+    println!("{} / {} = {}", c, d, div(c, d)?);
+    return Ok(());
 }
