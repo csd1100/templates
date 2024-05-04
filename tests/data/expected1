@@ -1,3 +1,0 @@
-module {{ .packageName }}/{{ .projectName }}
-
-go 1.21.6
