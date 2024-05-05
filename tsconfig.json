@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+
+        "allowJs": true,
+        "checkJs": true,
+        "resolveJsonModule": true,
+        "moduleDetection": "force",
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+
+        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "noUnusedParameters": true,
+        "noImplicitOverride": true,
+        "noUncheckedIndexedAccess": true,
+        "noFallthroughCasesInSwitch": true,
+        "exactOptionalPropertyTypes": true,
+        "noPropertyAccessFromIndexSignature": true,
+
+        "noErrorTruncation": true,
+
+        "module": "nodenext",
+        "outDir": "dist",
+        "sourceMap": true,
+        "declaration": true,
+        "lib": ["es2022"]
+    }
+}
