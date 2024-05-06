@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es2022",
+        "module": "NodeNext",
+        "target": "ESNext",
+        "lib": ["ESNext"],
+        "outDir": "dist",
         "skipLibCheck": true,
         "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": true,
 
         "allowJs": true,
         "checkJs": true,
@@ -23,12 +28,6 @@
         "exactOptionalPropertyTypes": true,
         "noPropertyAccessFromIndexSignature": true,
 
-        "noErrorTruncation": true,
-
-        "module": "nodenext",
-        "outDir": "dist",
-        "sourceMap": true,
-        "declaration": true,
-        "lib": ["es2022"]
+        "noErrorTruncation": true
     }
 }
