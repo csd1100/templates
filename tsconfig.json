@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "ESNext",
         "module": "commonjs",
-        "lib": ["ESNext"],
         "jsx": "react-jsx",
         "skipLibCheck": true,
         "esModuleInterop": true,
@@ -17,7 +16,7 @@
         "resolveJsonModule": true,
         "moduleDetection": "force",
         "isolatedModules": true,
-        "verbatimModuleSyntax": true,
+        "allowUmdGlobalAccess": true,
 
         "strict": true,
         "noImplicitAny": true,
