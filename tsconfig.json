@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
+        "module": "commonjs",
         "target": "ESNext",
         "lib": ["ESNext"],
         "outDir": "dist",
@@ -14,7 +14,6 @@
         "resolveJsonModule": true,
         "moduleDetection": "force",
         "isolatedModules": true,
-        "verbatimModuleSyntax": true,
 
         "strict": true,
         "noImplicitAny": true,

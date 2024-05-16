@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "src/app.ts",
-    "type": "module",
     "scripts": {
-        "clean":"rm -rf dist",
+        "clean": "rm -rf dist",
         "compile": "tsc",
-        "build":"vite-node ./src/app.ts",
+        "run": "ts-node ./src/app.ts",
         "test": "vitest"
     },
     "author": "",
@@ -20,6 +19,7 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.1.3",
         "prettier": "3.2.5",
+        "ts-node": "^10.9.2",
         "typescript": "^5.4.5",
         "typescript-eslint": "^7.8.0",
         "vitest": "^1.6.0"
