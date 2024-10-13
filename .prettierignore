@@ -1,2 +1,4 @@
 build
 coverage
+package.json
+pnpm-lock.yaml
