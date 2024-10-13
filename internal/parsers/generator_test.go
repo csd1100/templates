@@ -10,23 +10,23 @@ import (
 )
 
 func TestGenerator(t *testing.T) {
-	expected_files := []string{"../../tests/data/expected1", "../../tests/data/expected2"}
-	expected_data := []string{}
-	for _, expected_file := range expected_files {
-		data, err := os.ReadFile(expected_file)
+	expectedFiles := []string{"../../tests/data/expected1", "../../tests/data/expected2"}
+	var expectedData []string
+	for _, expectedFile := range expectedFiles {
+		data, err := os.ReadFile(expectedFile)
 		if err != nil {
-			t.Errorf("Unable to read expected files %s due to error %s", expected_file, err.Error())
+			t.Errorf("Unable to read expected files %s due to error %s", expectedFile, err.Error())
 		}
-		expected_data = append(expected_data, string(data))
+		expectedData = append(expectedData, string(data))
 	}
 
 	cases := []struct {
-		name                  string
-		config                parsers.Config
-		templateFiles         parsers.TemplateFiles
-		actual_files_to_check []string
-		actual_file_present   bool
-		expected_error        error
+		name               string
+		config             parsers.Config
+		templateFiles      parsers.TemplateFiles
+		actualFilesToCheck []string
+		actualFilePresent  bool
+		expectedError      error
 	}{
 		{
 			name: "generates valid templates when valid input",
@@ -38,7 +38,7 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Real:  "./testsource1",
+						Real:     "./testsource1",
 						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -46,7 +46,7 @@ func TestGenerator(t *testing.T) {
 						},
 					},
 					{
-						Real:  "./testsource2",
+						Real:     "./testsource2",
 						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -54,9 +54,9 @@ func TestGenerator(t *testing.T) {
 					},
 				},
 			},
-			actual_files_to_check: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
-			actual_file_present:   true,
-			expected_error:        nil,
+			actualFilesToCheck: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
+			actualFilePresent:  true,
+			expectedError:      nil,
 		},
 		{
 			name: "generates valid templates when nested input",
@@ -68,7 +68,7 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Real:  "./testsource1",
+						Real:     "./testsource1",
 						Template: "./dir1/testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -76,7 +76,7 @@ func TestGenerator(t *testing.T) {
 						},
 					},
 					{
-						Real:  "./testsource2",
+						Real:     "./testsource2",
 						Template: "./dir2/testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -84,9 +84,9 @@ func TestGenerator(t *testing.T) {
 					},
 				},
 			},
-			actual_files_to_check: []string{"../../tests/generated/dir1/testsource1.tmpl", "../../tests/generated/dir2/testsource2.tmpl"},
-			actual_file_present:   true,
-			expected_error:        nil,
+			actualFilesToCheck: []string{"../../tests/generated/dir1/testsource1.tmpl", "../../tests/generated/dir2/testsource2.tmpl"},
+			actualFilePresent:  true,
+			expectedError:      nil,
 		},
 		{
 			name: "returns error when invalid first source",
@@ -98,7 +98,7 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Real:  "./invalid_testsource1",
+						Real:     "./invalid_testsource1",
 						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -106,7 +106,7 @@ func TestGenerator(t *testing.T) {
 						},
 					},
 					{
-						Real:  "./testsource2",
+						Real:     "./testsource2",
 						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -114,9 +114,9 @@ func TestGenerator(t *testing.T) {
 					},
 				},
 			},
-			actual_files_to_check: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
-			actual_file_present:   false,
-			expected_error:        fmt.Errorf("no such file or directory"),
+			actualFilesToCheck: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
+			actualFilePresent:  false,
+			expectedError:      fmt.Errorf("no such file or directory"),
 		},
 		{
 			name: "returns error when invalid second source",
@@ -128,7 +128,7 @@ func TestGenerator(t *testing.T) {
 			templateFiles: parsers.TemplateFiles{
 				Files: []parsers.TemplateFile{
 					{
-						Real:  "./testsource1",
+						Real:     "./testsource1",
 						Template: "./testsource1.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -136,7 +136,7 @@ func TestGenerator(t *testing.T) {
 						},
 					},
 					{
-						Real:  "./invalid_testsource2",
+						Real:     "./invalid_testsource2",
 						Template: "./testsource2.tmpl",
 						Replacements: map[string]string{
 							"___projectName___": "{{ .projectName }}",
@@ -144,9 +144,9 @@ func TestGenerator(t *testing.T) {
 					},
 				},
 			},
-			actual_files_to_check: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
-			actual_file_present:   false,
-			expected_error:        fmt.Errorf("no such file or directory"),
+			actualFilesToCheck: []string{"../../tests/generated/testsource1.tmpl", "../../tests/generated/testsource2.tmpl"},
+			actualFilePresent:  false,
+			expectedError:      fmt.Errorf("no such file or directory"),
 		},
 	}
 
@@ -165,22 +165,22 @@ func TestGenerator(t *testing.T) {
 			fmt.Println(err)
 
 			if err != nil {
-				if !strings.Contains(err.Error(), tc.expected_error.Error()) {
-					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, "error to contain '"+tc.expected_error.Error()+"'", err)
+				if !strings.Contains(err.Error(), tc.expectedError.Error()) {
+					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, "error to contain '"+tc.expectedError.Error()+"'", err)
 				}
 			}
-			if tc.actual_file_present {
-				for index, actual := range tc.actual_files_to_check {
-					actual_data, err := os.ReadFile(actual)
+			if tc.actualFilePresent {
+				for index, actual := range tc.actualFilesToCheck {
+					actualData, err := os.ReadFile(actual)
 					if err != nil {
 						t.Errorf("Unable to read generated file %v with error %s", actual, err.Error())
 					}
-					if string(actual_data) != expected_data[index] {
-						t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, expected_data[index], actual_data)
+					if string(actualData) != expectedData[index] {
+						t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, expectedData[index], actualData)
 					}
 				}
 			} else {
-				for _, actual := range tc.actual_files_to_check {
+				for _, actual := range tc.actualFilesToCheck {
 					if _, err := os.Stat(actual); err == nil {
 						t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, actual+" to be not present", actual+" is present")
 					}

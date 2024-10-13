@@ -35,34 +35,34 @@ func TestParse(t *testing.T) {
 	}
 
 	cases := []struct {
-		name           string
-		init           func()
-		expected_value *parsers.Config
-		expected_error error
+		name          string
+		init          func()
+		expectedValue *parsers.Config
+		expectedError error
 	}{
 		{
-			name:           "returns error if empty args",
-			expected_value: nil,
-			expected_error: fmt.Errorf("The parameter `s|source` is required"),
+			name:          "returns error if empty args",
+			expectedValue: nil,
+			expectedError: fmt.Errorf("the parameter `s|source` is required"),
 		},
 		{
 			name: "returns error if source not included",
 			init: func() {
 			},
-			expected_value: nil,
-			expected_error: fmt.Errorf("The parameter `s|source` is required"),
+			expectedValue: nil,
+			expectedError: fmt.Errorf("the parameter `s|source` is required"),
 		},
 		{
 			name: "returns source if target not included",
 			init: func() {
 				parsers.FSet.Set("s", "../../tests/data/")
 			},
-			expected_value: &parsers.Config{
+			expectedValue: &parsers.Config{
 				ConfigFile:      configFilePath,
 				SourceDirectory: sourceDirectoryPath,
 				TargetDirectory: sourceDirectoryPath,
 			},
-			expected_error: nil,
+			expectedError: nil,
 		},
 		{
 			name: "returns valid config",
@@ -72,13 +72,13 @@ func TestParse(t *testing.T) {
 				parsers.FSet.Set("s", "../../tests/data/")
 				parsers.FSet.Set("t", "../../tests/generated/")
 			},
-			expected_value: &parsers.Config{
+			expectedValue: &parsers.Config{
 				Verbose:         true,
 				ConfigFile:      configFilePath,
 				SourceDirectory: sourceDirectoryPath,
 				TargetDirectory: targetDirectoryPath,
 			},
-			expected_error: nil,
+			expectedError: nil,
 		},
 		{
 			name: "returns valid config without specifying config file",
@@ -87,13 +87,13 @@ func TestParse(t *testing.T) {
 				parsers.FSet.Set("s", "../../tests/data/")
 				parsers.FSet.Set("t", "../../tests/generated/")
 			},
-			expected_value: &parsers.Config{
+			expectedValue: &parsers.Config{
 				Verbose:         false,
 				ConfigFile:      configFilePath,
 				SourceDirectory: sourceDirectoryPath,
 				TargetDirectory: targetDirectoryPath,
 			},
-			expected_error: nil,
+			expectedError: nil,
 		},
 		{
 			name: "returns valid config with full args",
@@ -102,12 +102,12 @@ func TestParse(t *testing.T) {
 				parsers.FSet.Set("source", "../../tests/data/")
 				parsers.FSet.Set("target", "../../tests/generated/")
 			},
-			expected_value: &parsers.Config{
+			expectedValue: &parsers.Config{
 				ConfigFile:      configFilePath,
 				SourceDirectory: sourceDirectoryPath,
 				TargetDirectory: targetDirectoryPath,
 			},
-			expected_error: nil,
+			expectedError: nil,
 		},
 		{
 			name: "returns error if invalid source directory",
@@ -116,8 +116,8 @@ func TestParse(t *testing.T) {
 				parsers.FSet.Set("source", "invalid")
 				parsers.FSet.Set("target", "../../tests/generated/")
 			},
-			expected_value: nil,
-			expected_error: fmt.Errorf("Unable to read %v", invalidPath),
+			expectedValue: nil,
+			expectedError: fmt.Errorf("unable to read %v", invalidPath),
 		},
 		{
 			name: "returns error if invalid config file",
@@ -126,8 +126,8 @@ func TestParse(t *testing.T) {
 				parsers.FSet.Set("source", "../../tests/data/")
 				parsers.FSet.Set("target", "../../tests/generated/")
 			},
-			expected_value: nil,
-			expected_error: fmt.Errorf("Unable to read %v", invalidConfigPath),
+			expectedValue: nil,
+			expectedError: fmt.Errorf("unable to read %v", invalidConfigPath),
 		},
 	}
 
@@ -149,18 +149,18 @@ func TestParse(t *testing.T) {
 			actual, err := parsers.ParseArgs()
 
 			if err != nil {
-				if err.Error() != tc.expected_error.Error() {
-					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, tc.expected_error, err)
+				if err.Error() != tc.expectedError.Error() {
+					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, tc.expectedError, err)
 				}
 				if actual != nil {
-					t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, tc.expected_value, actual)
+					t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, tc.expectedValue, actual)
 				}
 			} else {
-				if !reflect.DeepEqual(*actual, *tc.expected_value) {
-					t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, *tc.expected_value, *actual)
+				if !reflect.DeepEqual(*actual, *tc.expectedValue) {
+					t.Errorf(FAILURE_MESSAGE, tc.name, VALUE, *tc.expectedValue, *actual)
 				}
 				if err != nil {
-					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, tc.expected_error, err)
+					t.Errorf(FAILURE_MESSAGE, tc.name, ERROR, tc.expectedError, err)
 				}
 			}
 			os.Args = oldArgs
