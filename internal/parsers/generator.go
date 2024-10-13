@@ -8,7 +8,7 @@ import (
 )
 
 func Generate(config *Config, data *TemplateFiles) error {
-	dirsToCreate := []string{}
+	var dirsToCreate []string
 	filesToWrite := map[string][]byte{}
 
 	for _, templateFile := range data.Files {
@@ -47,7 +47,7 @@ func Generate(config *Config, data *TemplateFiles) error {
 	}
 
 	for _, targetDir := range dirsToCreate {
-		err := os.MkdirAll(targetDir, 0644)
+		err := os.MkdirAll(targetDir, 0744)
 		if err != nil {
 			return err
 		}

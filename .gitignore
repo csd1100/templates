@@ -25,3 +25,5 @@ build/
 
 # tests generated files
 /tests/generated
+
+.idea

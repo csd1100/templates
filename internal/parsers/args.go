@@ -29,10 +29,10 @@ func getAbsPath(path string) (string, error) {
 		if _, err := os.Stat(absPath); err == nil {
 			return absPath, nil
 		} else {
-			return "", fmt.Errorf("Unable to read %v", absPath)
+			return "", fmt.Errorf("unable to read %v", absPath)
 		}
 	} else {
-		return "", fmt.Errorf("Unable to get absolute path of %v", path)
+		return "", fmt.Errorf("unable to get absolute path of %v", path)
 	}
 }
 
@@ -61,16 +61,16 @@ func ParseArgs() (*Config, error) {
 		if errors.Is(err, flag.ErrHelp) {
 			return &Config{Help: true}, nil
 		} else {
-			return nil, fmt.Errorf("Unable to parse arguments")
+			return nil, fmt.Errorf("unable to parse arguments")
 		}
 	}
 
 	if configFile == "" {
-		return nil, fmt.Errorf("The parameter `c|config` is required")
+		return nil, fmt.Errorf("the parameter `c|config` is required")
 	}
 
 	if sourceDirectory == "" {
-		return nil, fmt.Errorf("The parameter `s|source` is required")
+		return nil, fmt.Errorf("the parameter `s|source` is required")
 	}
 
 	config := Config{}
